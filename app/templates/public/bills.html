@@ -1,0 +1,20 @@
+{% extends 'public/public_template/public_template.html' %} {% block title %} {{
+title }} {% endblock %} {% block main %}
+<div>Group's bills</div>
+<div>{{group.id}}</div>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Amount</th>
+  </tr>
+
+  <tr>
+    {%for bill in group.bills %}
+    <td>{{bills.id}}</td>
+    <td>{{bills.description}}</td>
+    <td>{{bills.price}}</td>
+  </tr>
+</table>
+
+{%endfor%} {% endblock %}

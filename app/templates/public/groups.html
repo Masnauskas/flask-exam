@@ -1,2 +1,11 @@
 {% extends 'public/public_template/public_template.html' %} {% block title %} {{
-title }} {% endblock %} {% block main %} {% endblock %}
+title }} {% endblock %} {% block main %}
+<div>Something</div>
+{%for i in data%}
+<div class="box">
+  <a href="{{ url_for('bills', group_id=i.id )}}"
+    ><div>id:{{i.id}}</div>
+    <div>{{i.name}}</div></a
+  >
+</div>
+{%endfor%} {% endblock %}

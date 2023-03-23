@@ -18,7 +18,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 from app import routes
-from app.models import User
+from app.models import User, Group, Bills
 
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
@@ -28,3 +28,4 @@ login_manager.login_message_category = 'info'
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+

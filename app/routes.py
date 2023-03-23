@@ -53,7 +53,17 @@ def register():
         flash('Email in use. Please enter another email address')
     return render_template('public/register.html', title='Register', form=form)
 
-@app.route('/groups')
+@app.route('/groups', methods=['GET', 'POST'])
 @login_required
 def groups():
-    return render_template('public/groups.html')
+    data = models.Group.query.all()
+    return render_template('public/groups.html', title='Groups', data=data)
+
+@app.route('/<int:group_id>/', methods=('GET', 'POST'))
+@login_required
+def bills(group_id):
+    group = models.Group.query.get_or_404(group_id)
+    return render_template('public/bills.html', title='Bills', group = group)
+
+# Baigta ties formos darymo bills.html
+# https://www.digitalocean.com/community/tutorials/how-to-use-one-to-many-database-relationships-with-flask-sqlalchemy#step-5-adding-new-comments
