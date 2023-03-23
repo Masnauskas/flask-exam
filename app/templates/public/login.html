@@ -19,5 +19,9 @@ title }} {% endblock %} {% block main %}
   <div>{{ form.remember_me}} {{ form.remember_me.label }}</div>
   <div>{{ form.submit }}</div>
 </form>
+<br />
+<div>
+  Don't have an account? <a href="{{url_for('register')}}">Register here</a>
+</div>
 
 {% endblock %}

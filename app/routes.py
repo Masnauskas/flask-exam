@@ -6,10 +6,11 @@ import secrets
 from PIL import Image
 from app import models, forms, db, app
 from app.__init__ import bcrypt
+from sqlalchemy.exc import IntegrityError
 from flask_login import current_user, logout_user, login_user, login_required
 
-@app.route('/login')
-@app.route('/')
+@app.route('/login', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('groups'))
@@ -25,3 +26,34 @@ def login():
             flash('Login error. Please check your email or password')
     
     return render_template('public/login.html', title='Login', form=form)
+
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    db.create_all()
+    if current_user.is_authenticated:
+        return redirect(url_for('groups'))
+    data = models.User.query.all()
+    form = forms.RegistrationForm()
+    try:
+        if form.validate_on_submit():
+            dateNow = datetime.now()
+            dateNowFormatted = dateNow.strftime("%d/%m/%Y %H:%M:%S")
+            hidden_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            user = models.User(name=form.name.data,
+                                email=form.email.data,
+                                date = dateNowFormatted,
+                                password=hidden_password)
+            db.session.add(user)
+            db.session.commit()
+            flash('Registration successful. You can now login.')
+            return redirect(url_for('login'))
+            
+    except IntegrityError:
+        db.session.rollback()
+        flash('Email in use. Please enter another email address')
+    return render_template('public/register.html', title='Register', form=form)
+
+@app.route('/groups')
+@login_required
+def groups():
+    return render_template('public/groups.html')
