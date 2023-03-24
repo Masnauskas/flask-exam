@@ -8,13 +8,33 @@ title }} {% endblock %} {% block main %}
     <th>Description</th>
     <th>Amount</th>
   </tr>
-
+  {%for bill in group.bills %}
   <tr>
-    {%for bill in group.bills %}
-    <td>{{bills.id}}</td>
-    <td>{{bills.description}}</td>
-    <td>{{bills.price}}</td>
+    <td>{{bill.id}}</td>
+    <td>{{bill.description}}</td>
+    <td>{{bill.price}}</td>
   </tr>
+  {%endfor%}
 </table>
 
-{%endfor%} {% endblock %}
+<form method="post" action="" enctype="multipart/form-data">
+  {{ form.csrf_token }}
+  <div>
+    {{ form.description.label}} {{ form.description}} {% if
+    form.description.errors %} {% for error in form.description.errors %}
+    <div style="color: red">{{ error }}</div>
+    {% endfor %} {% endif %}
+  </div>
+  <div>
+    {{ form.price.label }} {{ form.price }} {% if form.price.errors %} {% for
+    error in form.price.errors %}
+    <div style="color: red">{{ error }}</div>
+    {% endfor %} {% endif %}
+  </div>
+
+  {{ form.submit }}
+</form>
+
+<br />
+
+{% endblock %}
