@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, BooleanField, PasswordField
+from wtforms import StringField, TextAreaField, SubmitField, BooleanField, PasswordField, FloatField
 from wtforms.validators import DataRequired, Length, Email, ValidationError, EqualTo
 from flask_wtf.file import FileField, FileAllowed
 from app import models, current_user
@@ -21,10 +21,12 @@ class RegistrationForm(FlaskForm):
         
         
 class LoginForm(FlaskForm):
-    email = StringField('Email', [DataRequired()])
+    email = StringField('Email:', [Email(message=('Email entered wrong.')), DataRequired()])
     password = PasswordField('Password', [DataRequired()])
     remember_me = BooleanField("Remember")
     submit = SubmitField('Login')
     
 class AddBills(FlaskForm):
-    
+    descriotion = StringField('Description:', [DataRequired()])
+    amount = FloatField('Amount:', [DataRequired()])
+    submit = SubmitField('Add')
