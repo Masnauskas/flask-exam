@@ -26,7 +26,7 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField("Remember")
     submit = SubmitField('Login')
     
-class AddBills(FlaskForm):
-    descriotion = StringField('Description:', [DataRequired()])
-    amount = FloatField('Amount:', [DataRequired()])
+class AddBillsForm(FlaskForm):
+    description = StringField('Description:', [DataRequired()])
+    price = FloatField('Amount:', [DataRequired()])
     submit = SubmitField('Add')

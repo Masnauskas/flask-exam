@@ -63,7 +63,15 @@ def groups():
 @login_required
 def bills(group_id):
     group = models.Group.query.get_or_404(group_id)
-    return render_template('public/bills.html', title='Bills', group = group)
+    form = forms.AddBillsForm()
+    if form.validate_on_submit():
+        bill = models.Bills(description=form.description.data,
+                            price=form.price.data,
+                           group_id=group_id
+                            )
+        db.session.add(bill)
+        db.session.commit()
+   
+        return redirect(url_for('bills', group_id=group.id))
+    return render_template('public/bills.html', title='Bills', group = group, form=form)
 
-# Baigta ties formos darymo bills.html
-# https://www.digitalocean.com/community/tutorials/how-to-use-one-to-many-database-relationships-with-flask-sqlalchemy#step-5-adding-new-comments
