@@ -56,8 +56,30 @@ def register():
 @app.route('/groups', methods=['GET', 'POST'])
 @login_required
 def groups():
-    data = models.Group.query.all()
-    return render_template('public/groups.html', title='Groups', data=data)
+   
+    # user = models.User.query.get_or_404(user_id) 
+    user_id = current_user.id
+    print(user_id)
+    
+    form = forms.AddGroupBillForm()
+    data = models.Group.query.filter_by(user_id=user_id)
+    if form.validate_on_submit():
+            dateNow = datetime.now()
+            dateNowFormatted = dateNow.strftime("%d/%m/%Y %H:%M:%S")
+            group_entry = models.Group(name=form.name.data,
+                                date = dateNowFormatted,
+                                user_id = user_id
+                                )
+            db.session.add(group_entry)
+            db.session.commit()
+            flash('Expenditure successfully added.')
+            return redirect(url_for('groups', user_id=user_id))
+    # page = request.args.get('page', 1, type=int)
+   
+    # all_data = models.Group.query.filter_by(user_id=current_user.id)
+    # return render_template('public/groups.html', title='Groups', form=form, data=data, datetime=datetime, all_data=all_data, user = user)
+    return render_template('public/groups.html', title='Groups', form=form, data=data, user = user_id)
+
 
 @app.route('/<int:group_id>/', methods=('GET', 'POST'))
 @login_required

@@ -2,20 +2,12 @@
 title }} {% endblock %} {% block main %}
 <h2>Login</h2>
 <form method="POST" action="">
-  {{ form.hidden_tag() }}
-  <div class="title">Log in</div>
-  <div>
-    {{ form.email.label }} {{ form.email }} {% with messages =
-    get_flashed_messages() %} {% if messages %} {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor %} {% endif %} {% endwith %}
-  </div>
-  <div>
-    {{ form.password.label }} {{ form.password }} {% with messages =
-    get_flashed_messages() %} {% if messages %} {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor %} {% endif %} {% endwith %}
-  </div>
+  {{ form.hidden_tag() }} {% with messages = get_flashed_messages() %} {% if
+  messages %} {% for message in messages %}
+  <p>{{ message }}</p>
+  {% endfor %} {% endif %} {% endwith %}
+  <div>{{ form.email.label }} {{ form.email }}</div>
+  <div>{{ form.password.label }} {{ form.password }}</div>
   <div>{{ form.remember_me}} {{ form.remember_me.label }}</div>
   <div>{{ form.submit }}</div>
 </form>

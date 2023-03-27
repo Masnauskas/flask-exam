@@ -8,6 +8,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(60), unique=True, nullable=False)
     date = db.Column(db.String(80), nullable=False)
+    groups = db.relationship('Group', backref='groups')
     
     
 class Group(db.Model, UserMixin):
@@ -15,6 +16,10 @@ class Group(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     bills = db.relationship('Bills', backref='group_list')
+    # ids = db.relationship('User', secondary='ids', backref='group_list')
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    date = db.Column(db.String(80), nullable=False)
+   
     
     
 class Bills(db.Model):
@@ -24,8 +29,13 @@ class Bills(db.Model):
     price = db.Column(db.Integer, nullable=False)
     group_id = db.Column(db.Integer, db.ForeignKey('group_list.id'))
     
+
     
+# id_table = db.Table('ids',
+#                     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+#                     db.Column('group_id', db.Integer, db.ForeignKey('group_list.id'))
+#                     )    
 
    
     
-   
+  

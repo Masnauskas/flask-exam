@@ -8,4 +8,18 @@ title }} {% endblock %} {% block main %}
     <div>{{i.name}}</div></a
   >
 </div>
-{%endfor%} {% endblock %}
+{%endfor%}
+<form method="POST" action="">
+  {{ form.hidden_tag() }}
+  <div class="title">Something 2</div>
+  <div>
+    {{ form.name.label }} {{ form.name }} {% with messages =
+    get_flashed_messages() %} {% if messages %} {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %} {% endif %} {% endwith %}
+  </div>
+
+  <div>{{ form.submit }}</div>
+</form>
+
+{% endblock %}

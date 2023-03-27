@@ -25,6 +25,10 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', [DataRequired()])
     remember_me = BooleanField("Remember")
     submit = SubmitField('Login')
+
+class AddGroupBillForm(FlaskForm):
+    name = StringField('Expense group name:', [DataRequired()])
+    submit = SubmitField('Submit')
     
 class AddBillsForm(FlaskForm):
     description = StringField('Description:', [DataRequired()])
