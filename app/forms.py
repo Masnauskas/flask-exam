@@ -9,8 +9,8 @@ from app import models, current_user, app
 class RegistrationForm(FlaskForm):
     name = StringField('Name:', [DataRequired()])
     email = StringField('Email:', [Email(message=('Email entered wrong.')), DataRequired()])
-    password = PasswordField('Password', [DataRequired()])
-    confirm_password = PasswordField("Repeat your password",
+    password = PasswordField('Password:', [DataRequired()])
+    confirm_password = PasswordField("Repeat your password:",
                                              [EqualTo('password', "Passwords must be the same.")])
     submit = SubmitField('Submit')
     

@@ -75,7 +75,7 @@ input {
   border: 1px solid grey;
 }
 
-.login-box {
+.login-register-box {
   width: 50%;
 }
 
@@ -104,4 +104,7 @@ th {
 
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+.link-formatting a {
+  color: black;
 }

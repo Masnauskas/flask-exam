@@ -1,6 +1,6 @@
 {% extends 'public/public_template/public_template.html' %}{% set active_page =
 "login" %} {% block title %} {{ title }} {% endblock %} {% block main %}
-<div class="login-box">
+<div class="login-register-box">
   <h2>Login</h2>
   <br />
   <form method="POST" action="">
@@ -19,12 +19,12 @@
     <br />
     <div>{{ form.submit }}</div>
     <br />
-    <div>
+    <div class="link-formatting">
       <a href="{{ url_for('reset_request') }}">Forgot your password?</a>
     </div>
   </form>
   <br />
-  <div>
+  <div class="link-formatting">
     Don't have an account? <a href="{{url_for('register')}}">Register here</a>
   </div>
 </div>
