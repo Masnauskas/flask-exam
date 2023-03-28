@@ -31,7 +31,7 @@ class Bills(db.Model):
     
 
     
-# id_table = db.Table('ids',
+# id_table = db.Table('user_groups',
 #                     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
 #                     db.Column('group_id', db.Integer, db.ForeignKey('group_list.id'))
 #                     )    
