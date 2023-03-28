@@ -5,6 +5,7 @@ from flask_login import LoginManager, UserMixin, current_user, logout_user, logi
 from flask_bcrypt import Bcrypt
 from flask_mail import Message, Mail
 
+
 SECRET_KEY = os.urandom(32)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -25,7 +26,7 @@ from app import routes
 from app.models import User, Group, Bills
 
 bcrypt = Bcrypt(app)
-mail = Mail(app)
+
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -39,7 +40,8 @@ def load_user(user_id):
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'username@gmail.com'
-app.config['MAIL_PASSWORD'] = 'password'
-
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_USERNAME'] = 'MAIL_USERNAME'
+app.config['MAIL_PASSWORD'] = 'MAIL_PASSWORD'
+mail = Mail(app)
 

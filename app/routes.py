@@ -140,8 +140,8 @@ def reset_token(token):
         return redirect(url_for('groups'))
     user = models.User.verify_reset_token(token)
     if user is None:
-        flash('Please try again.')
-        return redirect(url_for('reset_request'))
+        flash('User not found.')
+        return redirect(url_for('login'))
     form = forms.PasswordResetForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')

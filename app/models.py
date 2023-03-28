@@ -1,6 +1,11 @@
 from app import app, db
 from flask_login import UserMixin
 from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
+import jwt
+import os
+from time import time
+from api_jwt import APIJwt 
+
 
 
 class User(db.Model, UserMixin):
@@ -12,21 +17,34 @@ class User(db.Model, UserMixin):
     date = db.Column(db.String(80), nullable=False)
     groups = db.relationship('Group', backref='groups')
     
-    def get_reset_token(self, expires_sec=1800):
-        s = Serializer(app.config['SECRET_KEY'], expires_sec)
+    # def get_reset_token(self, expires_sec=1800):
+    #     s = Serializer(app.config['SECRET_KEY'], expires_sec)
         
         
-        return s.dumps({'user_id': self.id}).decode('utf-8')
+    #     return s.dumps({'user_id': self.id}).decode('utf-8')
     
+    # @staticmethod
+    # def verify_reset_token(token):
+    #     s = Serializer(app.config['SECRET_KEY'])
+    #     try:
+    #         user_id = s.loads(token)['user_id']
+    #     except:
+    #         return None
+    #     return User.query.get(user_id)
+    
+    def get_reset_token(self, expires=1000):
+        return jwt.encode({'user_id': self.id, 'exp': time() + expires},
+                           key=app.config['SECRET_KEY'])
+        
     @staticmethod
     def verify_reset_token(token):
-        s = Serializer(app.config['SECRET_KEY'])
         try:
-            user_id = s.loads(token)['user_id']
-        except:
-            return None
+            user_id = jwt.decode(token, key=app.config['SECRET_KEY'])['user_id']
+            print(user_id)
+        except Exception as e:
+            print(e)
+            return
         return User.query.get(user_id)
-    
     
 class Group(db.Model, UserMixin):
     __tablename__ = 'group_list'
