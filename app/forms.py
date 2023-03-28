@@ -11,8 +11,7 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email:', [Email(message=('Email entered wrong.')), DataRequired()])
     password = PasswordField('Password', [DataRequired()])
     confirm_password = PasswordField("Repeat your password",
-                                             [EqualTo('password', "Password must be the same.")])
-    image = FileField('Upload your picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
+                                             [EqualTo('password', "Passwords must be the same.")])
     submit = SubmitField('Submit')
     
 
@@ -47,3 +46,18 @@ class ProfileForm(FlaskForm):
             user = models.User.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('Email in use. Please enter another email address')
+        
+class RequestResetForm(FlaskForm):
+    email = StringField('Email:', validators=[DataRequired(), Email()])
+    submit = SubmitField('Submit')
+    
+    def validate_email(self, email):
+        user = models.User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('User not found. Please register.')
+        
+class PasswordResetForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Repeat your password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Submit')
+    

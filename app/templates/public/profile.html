@@ -2,14 +2,15 @@
 title }} {% endblock %} {% block main %}
 <h2>Profile</h2>
 <form method="POST" action="">
-  {{ form.hidden_tag() }} {% with messages = get_flashed_messages() %} {% if
-  messages %} {% for message in messages %}
-  <p>{{ message }}</p>
-  {% endfor %} {% endif %} {% endwith %}
+  {{ form.hidden_tag() }}
   <div>{{ form.name.label }} {{ form.name }}</div>
   <div>{{ form.email.label }} {{ form.email }}</div>
 
   <div>{{ form.submit }}</div>
+  {% with messages = get_flashed_messages() %} {% if messages %} {% for message
+  in messages %}
+  <p>{{ message }}</p>
+  {% endfor %} {% endif %} {% endwith %}
 </form>
 <br />
 
