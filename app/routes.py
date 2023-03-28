@@ -22,9 +22,7 @@ def login():
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('groups'))
         else:
-           
             flash('Login error. Please check your email or password')
-    
     return render_template('public/login.html', title='Login', form=form)
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -46,8 +44,7 @@ def register():
             db.session.add(user)
             db.session.commit()
             flash('Registration successful. You can now login.')
-            return redirect(url_for('login'))
-            
+            return redirect(url_for('login'))        
     except IntegrityError:
         db.session.rollback()
         flash('Email in use. Please enter another email address')
@@ -56,17 +53,14 @@ def register():
 @app.route('/groups', methods=['GET', 'POST'])
 @login_required
 def groups():
-   
-    # user = models.User.query.get_or_404(user_id) 
     user_id = current_user.id
-    print(user_id)
-    
     form = forms.AddGroupBillForm()
     data = models.Group.query.filter_by(user_id=user_id)
     if form.validate_on_submit():
             dateNow = datetime.now()
             dateNowFormatted = dateNow.strftime("%d/%m/%Y %H:%M:%S")
-            group_entry = models.Group(name=form.name.data,
+            group_entry = models.Group(
+                                name=form.name.data,
                                 date = dateNowFormatted,
                                 user_id = user_id
                                 )
@@ -74,10 +68,6 @@ def groups():
             db.session.commit()
             flash('Expenditure successfully added.')
             return redirect(url_for('groups', user_id=user_id))
-    # page = request.args.get('page', 1, type=int)
-   
-    # all_data = models.Group.query.filter_by(user_id=current_user.id)
-    # return render_template('public/groups.html', title='Groups', form=form, data=data, datetime=datetime, all_data=all_data, user = user)
     return render_template('public/groups.html', title='Groups', form=form, data=data, user = user_id)
 
 
@@ -97,3 +87,19 @@ def bills(group_id):
         return redirect(url_for('bills', group_id=group.id))
     return render_template('public/bills.html', title='Bills', group = group, form=form)
 
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
+@app.errorhandler(404)
+def error_404(error):
+    return render_template("404.html"), 404
+
+@app.errorhandler(403)
+def error_403(error):
+    return render_template("403.html"), 403
+
+@app.errorhandler(500)
+def error_500(error):
+    return render_template("500.html"), 500
