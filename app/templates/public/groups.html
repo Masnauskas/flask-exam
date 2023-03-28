@@ -1,24 +1,29 @@
 {% extends 'public/public_template/public_template.html' %} {% block title %} {{
 title }} {% endblock %} {% block main %}
-<div>Something</div>
-{%for i in data%}
-<div class="box">
-  <a href="{{ url_for('bills', group_id=i.id )}}"
-    ><div>id:{{i.id}}</div>
-    <div>{{i.name}}</div></a
-  >
+<h2>Select your group</h2>
+<br />
+<div class="box-container">
+  {%for i in data%}
+  <div class="box">
+    <a href="{{ url_for('bills', group_id=i.id )}}"
+      ><h1>ID: {{i.id}}</h1>
+      <h4>{{i.name}}</h4></a
+    >
+  </div>
+  {%endfor%}
 </div>
-{%endfor%}
+<br />
 <form method="POST" action="">
   {{ form.hidden_tag() }}
-  <div class="title">Something 2</div>
+  <h2>Create new groups</h2>
+  <br />
   <div>
     {{ form.name.label }} {{ form.name }} {% with messages =
     get_flashed_messages() %} {% if messages %} {% for message in messages %}
     <p>{{ message }}</p>
     {% endfor %} {% endif %} {% endwith %}
   </div>
-
+  <br />
   <div>{{ form.submit }}</div>
 </form>
 

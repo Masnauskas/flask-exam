@@ -11,10 +11,97 @@
   width: 100px;
   height: 100px;
 }
-
+.header-container a {
+  text-decoration: none;
+  color: black;
+}
+.main-container {
+  padding: 0 20px;
+}
 .font-color {
   color: grey;
 }
+.box-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  width: 100%;
+}
 .box {
   border: 1px solid grey;
+  padding: 20px;
+  text-align: center;
+  flex: 1;
+}
+.box a {
+  text-decoration: none;
+  color: black;
+}
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.links {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.links a {
+  text-decoration: none;
+  color: black;
+}
+.links a:hover {
+  text-decoration: underline;
+}
+input[type="submit"] {
+  background-color: white;
+  color: black;
+  width: 30%;
+  cursor: pointer;
+  position: relative;
+  border: 1px solid black;
+}
+input[type="submit"]:hover {
+  background-color: black;
+  color: white;
+}
+input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px 5px 5px 0;
+
+  border: 1px solid grey;
+}
+
+.login-box {
+  width: 50%;
+}
+
+.remember-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 20%;
+}
+.check-box {
+  margin-top: 3px;
+}
+.hide {
+  display: none;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
 }

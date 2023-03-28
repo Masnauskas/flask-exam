@@ -84,7 +84,7 @@ def bills(group_id):
                             )
         db.session.add(bill)
         db.session.commit()
-   
+        flash('Expense successfully added.')
         return redirect(url_for('bills', group_id=group.id))
     return render_template('public/bills.html', title='Bills', group = group, form=form)
 

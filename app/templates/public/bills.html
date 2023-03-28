@@ -1,7 +1,8 @@
-{% extends 'public/public_template/public_template.html' %} {% block title %} {{
-title }} {% endblock %} {% block main %}
-<div>Group's bills</div>
-<div>{{group.id}}</div>
+{% extends 'public/public_template/public_template.html' %}{% set active_page =
+"bills" %} {% block title %} {{ title }} {% endblock %} {% block main %}
+
+<div>Group {{group.id}} bills</div>
+<div>{{group.name}}</div>
 <table>
   <tr>
     <th>ID</th>
@@ -12,29 +13,26 @@ title }} {% endblock %} {% block main %}
   <tr>
     <td>{{bill.id}}</td>
     <td>{{bill.description}}</td>
-    <td>{{bill.price}}</td>
+    <td>&#x20AC; {{bill.price}}</td>
   </tr>
   {%endfor%}
 </table>
-
+<br />
+<h2>Add bill</h2>
+<br />
 <form method="post" action="" enctype="multipart/form-data">
   {{ form.csrf_token }}
-  <div>
-    {{ form.description.label}} {{ form.description}} {% if
-    form.description.errors %} {% for error in form.description.errors %}
-    <div style="color: red">{{ error }}</div>
-    {% endfor %} {% endif %}
-  </div>
-  <div>
-    {{ form.price.label }} {{ form.price }} {% if form.price.errors %} {% for
-    error in form.price.errors %}
-    <div style="color: red">{{ error }}</div>
-    {% endfor %} {% endif %}
-  </div>
-
-  {{ form.submit }}
+  <div>{{ form.description.label}} {{ form.description}}</div>
+  <br />
+  <div>{{ form.price.label }} {{ form.price }}</div>
+  <br />
+  <div>{{ form.submit }}</div>
 </form>
-
+<br />
+{% with messages = get_flashed_messages() %} {% if messages %} {% for message in
+messages %}
+<p>{{ message }}</p>
+{% endfor %} {% endif %} {% endwith %}
 <br />
 
 {% endblock %}

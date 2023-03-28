@@ -23,13 +23,13 @@ class RegistrationForm(FlaskForm):
         
 class LoginForm(FlaskForm):
     email = StringField('Email:', [Email(message=('Email entered wrong.')), DataRequired()])
-    password = PasswordField('Password', [DataRequired()])
+    password = PasswordField('Password:', [DataRequired()])
     remember_me = BooleanField("Remember")
     submit = SubmitField('Login')
 
 class AddGroupBillForm(FlaskForm):
     name = StringField('Expense group name:', [DataRequired()])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Add')
     
 class AddBillsForm(FlaskForm):
     description = StringField('Description:', [DataRequired()])
