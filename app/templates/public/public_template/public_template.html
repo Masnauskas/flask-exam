@@ -23,7 +23,10 @@
       <h3><span class="font-color">BEST IN MARKET</span></h3>
     </div>
     {% if current_user.is_authenticated %}
+    <div><a href="{{url_for('profile')}}">Profile</a></div>
+
     <div><a href="{{url_for('logout')}}">Logout</a></div>
+
     {% endif %}
 
     <main>{% block main %} {% endblock %}</main>

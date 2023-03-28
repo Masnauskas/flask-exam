@@ -2,7 +2,9 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField, BooleanField, PasswordField, FloatField
 from wtforms.validators import DataRequired, Length, Email, ValidationError, EqualTo
 from flask_wtf.file import FileField, FileAllowed
-from app import models, current_user
+from app import models, current_user, app
+
+
 
 class RegistrationForm(FlaskForm):
     name = StringField('Name:', [DataRequired()])
@@ -34,3 +36,14 @@ class AddBillsForm(FlaskForm):
     description = StringField('Description:', [DataRequired()])
     price = FloatField('Amount:', [DataRequired()])
     submit = SubmitField('Add')
+    
+class ProfileForm(FlaskForm):
+    name = StringField('Name:', [DataRequired()])
+    email = StringField('Email:', [DataRequired()])
+    submit = SubmitField('Submit')
+    
+    def check_email(self, email):
+        if email.data != current_user.email:
+            user = models.User.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError('Email in use. Please enter another email address')

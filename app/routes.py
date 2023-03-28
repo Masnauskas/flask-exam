@@ -103,3 +103,18 @@ def error_403(error):
 @app.errorhandler(500)
 def error_500(error):
     return render_template("500.html"), 500
+
+@app.route("/profile", methods=('GET', 'POST'))
+@login_required
+def profile():
+    form = forms.ProfileForm()
+    if form.validate_on_submit():
+        current_user.name = form.name.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Your profile has been updated.')
+        return redirect(url_for('profile'))
+    elif request.method == 'GET':
+        form.name.data = current_user.name
+        form.email.data = current_user.email
+    return render_template('public/profile.html', title='Profile', form=form)
