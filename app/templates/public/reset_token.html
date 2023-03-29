@@ -1,0 +1,26 @@
+{% extends 'public/public_template/public_template.html' %} {% block title %} {{
+    title }} {% endblock %} {% block main %}
+    <div class="title">Change your password</div>
+    <form method="post" action="">
+        {{ form.hidden_tag() }}
+    
+        <div>
+            {{ form.password.label }}  {{ form.password }}
+          <div>
+      <div>
+        {{ form.confirm_password.label }} {{ form.confirm_password }} {% with
+        messages = get_flashed_messages() %} {% if messages %} {% for message in
+        messages %}
+        <p>{{ message }}</p>
+        {% endfor %} {% endif %} {% endwith %}
+      </div>
+    
+      {{ form.submit }}
+    </form>
+    <br />
+    <div><a href="{{url_for('register')}}">Register here</a></div>
+    
+    <div><a href="{{url_for('login')}}">Or login here</a></div>
+    
+    {% endblock %}
+    

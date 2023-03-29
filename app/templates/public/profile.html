@@ -1,0 +1,20 @@
+{% extends 'public/public_template/public_template.html' %}{% set active_page =
+"profile" %} {% block title %} {{ title }} {% endblock %} {% block main %}
+<h2>Profile</h2>
+<h4>View and change your info here</h4>
+<br />
+<form method="POST" action="">
+  {{ form.hidden_tag() }}
+  <div>{{ form.name.label }} {{ form.name }}</div>
+  <br />
+  <div>{{ form.email.label }} {{ form.email }}</div>
+  <br />
+  <div>{{ form.submit }}</div>
+  {% with messages = get_flashed_messages() %} {% if messages %} {% for message
+  in messages %}
+  <p>{{ message }}</p>
+  {% endfor %} {% endif %} {% endwith %}
+</form>
+<br />
+
+{% endblock %}

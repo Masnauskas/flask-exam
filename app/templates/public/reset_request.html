@@ -1,0 +1,27 @@
+{% extends 'public/public_template/public_template.html' %} {% block title %} {{
+title }} {% endblock %} {% block main %}
+<h2 class="title">Change your password</h2>
+<br />
+<form method="post" action="" enctype="multipart/form-data">
+  {{ form.csrf_token }}
+
+  <div>{{ form.email.label }} {{ form.email }}</div>
+  <div>
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for
+    message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %} {% endif %} {% endwith %}
+  </div>
+  <br />
+  {{ form.submit }}
+</form>
+<br />
+<div class="link-formatting">
+  <a href="{{url_for('register')}}">Register here</a>
+</div>
+<br />
+<div class="link-formatting">
+  <a href="{{url_for('login')}}">Or login here</a>
+</div>
+
+{% endblock %}

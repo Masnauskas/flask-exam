@@ -1,0 +1,32 @@
+{% extends 'public/public_template/public_template.html' %}{% set active_page =
+"login" %} {% block title %} {{ title }} {% endblock %} {% block main %}
+<div class="login-register-box">
+  <h2>Login</h2>
+  <br />
+  <form method="POST" action="">
+    {{ form.hidden_tag() }} {% with messages = get_flashed_messages() %} {% if
+    messages %} {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %} {% endif %} {% endwith %}
+    <div>{{ form.email.label }} {{ form.email }}</div>
+    <br />
+    <div>{{ form.password.label }} {{ form.password }}</div>
+    <br />
+    <div class="remember-box">
+      <div>{{ form.remember_me.label }}</div>
+      <div class="check-box">{{ form.remember_me}}</div>
+    </div>
+    <br />
+    <div>{{ form.submit }}</div>
+    <br />
+    <div class="link-formatting">
+      <a href="{{ url_for('reset_request') }}">Forgot your password?</a>
+    </div>
+  </form>
+  <br />
+  <div class="link-formatting">
+    Don't have an account? <a href="{{url_for('register')}}">Register here</a>
+  </div>
+</div>
+
+{% endblock %}
