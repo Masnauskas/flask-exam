@@ -16,32 +16,33 @@
   color: black;
 }
 .main-container {
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
   padding: 0 20px;
 }
 .font-color {
   color: grey;
 }
 .box-container {
-  display: flex;
-  justify-content: space-around;
-  gap: 20px;
-  width: 100%;
+  /* display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 20px; */
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, 200px);
+  grid-template-rows: repeat(2, 100px);
 }
 .box {
   border: 1px solid grey;
   padding: 20px;
   text-align: center;
   flex: 1;
-}
-.box a {
   text-decoration: none;
   color: black;
 }
-.main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+
 .links {
   display: flex;
   flex-direction: row;
@@ -69,21 +70,26 @@ input[type="submit"]:hover {
 input {
   display: block;
   box-sizing: border-box;
-  width: 100%;
+  width: 50%;
   padding: 5px 5px 5px 0;
 
   border: 1px solid grey;
 }
 
 .login-register-box {
-  width: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
+.login-register-box input {
+  width: 100%;
+}
 .remember-box {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 20%;
+  width: 60%;
 }
 .check-box {
   margin-top: 3px;

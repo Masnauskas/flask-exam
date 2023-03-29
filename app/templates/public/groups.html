@@ -4,12 +4,12 @@ title }} {% endblock %} {% block main %}
 <br />
 <div class="box-container">
   {%for i in data%}
-  <div class="box">
-    <a href="{{ url_for('bills', group_id=i.id )}}"
-      ><h1>ID: {{i.id}}</h1>
-      <h4>{{i.name}}</h4></a
-    >
-  </div>
+
+  <a class="box" href="{{ url_for('bills', group_id=i.id )}}">
+    <h1>ID: {{i.id}}</h1>
+    <h4>{{i.name}}</h4>
+  </a>
+
   {%endfor%}
 </div>
 <br />
@@ -18,7 +18,7 @@ title }} {% endblock %} {% block main %}
   <h2>Create new groups</h2>
   <br />
   <div>
-    {{ form.name.label }} {{ form.name }} {% with messages =
+    {{ form.name.label }} {{ form.name(maxlength=50) }} {% with messages =
     get_flashed_messages() %} {% if messages %} {% for message in messages %}
     <p>{{ message }}</p>
     {% endfor %} {% endif %} {% endwith %}
