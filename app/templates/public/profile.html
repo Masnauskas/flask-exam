@@ -1,6 +1,8 @@
 {% extends 'public/public_template/public_template.html' %}{% set active_page =
 "profile" %} {% block title %} {{ title }} {% endblock %} {% block main %}
 <h2>Profile</h2>
+<h4>View and change your info here</h4>
+<br />
 <form method="POST" action="">
   {{ form.hidden_tag() }}
   <div>{{ form.name.label }} {{ form.name }}</div>

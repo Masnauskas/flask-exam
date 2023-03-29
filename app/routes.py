@@ -110,7 +110,7 @@ def profile():
         form.email.data = current_user.email
     return render_template('public/profile.html', title='Profile', form=form)
 
-def send_reset_email(user: models.User):
+def send_reset_email(user):
     token = user.get_reset_token()
     msg = Message('Email reset instructions',
                   sender='flaskexam@gmail.com',
@@ -129,6 +129,7 @@ def reset_request():
     form = forms.RequestResetForm()
     if form.validate_on_submit():
         user = models.User.query.filter_by(email=form.email.data).first()
+        # user = models.User.validate_email(email=form.email.data)
         send_reset_email(user)
         flash('An email has been sent to you with password reset instructions.')
         return redirect(url_for('login'))

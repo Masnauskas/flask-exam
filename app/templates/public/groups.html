@@ -1,18 +1,5 @@
 {% extends 'public/public_template/public_template.html' %} {% block title %} {{
 title }} {% endblock %} {% block main %}
-<h2>Select your group</h2>
-<br />
-<div class="box-container">
-  {%for i in data%}
-
-  <a class="box" href="{{ url_for('bills', group_id=i.id )}}">
-    <h1>ID: {{i.id}}</h1>
-    <h4>{{i.name}}</h4>
-  </a>
-
-  {%endfor%}
-</div>
-<br />
 <form method="POST" action="">
   {{ form.hidden_tag() }}
   <h2>Create new groups</h2>
@@ -26,5 +13,19 @@ title }} {% endblock %} {% block main %}
   <br />
   <div>{{ form.submit }}</div>
 </form>
+<br />
+<h2>Your groups:</h2>
+<br />
+<div class="box-container">
+  {%for i in data%}
+
+  <a class="box" href="{{ url_for('bills', group_id=i.id )}}">
+    <h1>ID: {{i.id}}</h1>
+    <h4>{{i.name}}</h4>
+  </a>
+
+  {%endfor%}
+</div>
+<br />
 
 {% endblock %}
